@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Blog Post Manager</title>
     <link rel="icon" type="image/x-icon" href="./img/favicon.ico" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="container">
@@ -28,15 +32,29 @@
 
           <form class="form">
             <label for="title"><b>Title</b></label>
-            <input type="text" placeholder="Post Title" name="title" />
+            <input
+              type="text"
+              placeholder="Post Title"
+              id="title"
+              name="title"
+            />
 
             <label for="author"><b>Author</b></label>
-            <input type="text" placeholder="Author" name="Author" />
+            <input type="text" placeholder="Author" id="author" name="title" />
 
-            <label for="body"><b>Content</b></label>
-            <textarea name="body" cols="50" rows="10"></textarea>
-            <input type="submit" value="Add" class="btn" />
+            <label for="content"><b>Content</b></label>
+            <textarea
+              id="content"
+              name="content"
+              cols="50"
+              rows="10"
+            ></textarea>
+            <input type="submit" class="btn" />
           </form>
+        </section>
+        <section>
+          <h2>Blog Post</h2>
+          <div class="blog-posts"></div>
         </section>
       </main>
     </div>

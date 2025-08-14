@@ -7,6 +7,7 @@
 :root {
   --black: #1c1c1c;
   --gray: #7e7e7e;
+  --gray-dark: #787878;
   --gray-light: #e4e4e4;
   --background: rgb(231, 226, 219);
   --font-size-base: 1rem;
@@ -55,6 +56,16 @@ textarea {
   cursor: pointer;
 }
 
+.btn:hover {
+  background-color: var(--gray-dark);
+}
+
+.btn-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
 /* layout */
 .container {
   max-width: 982px;
@@ -74,4 +85,16 @@ textarea {
   border-radius: var(--border-radius);
   width: 100%;
   height: auto;
+}
+
+/* blog posts */
+.blog-posts {
+  margin-top: 2rem;
+}
+
+.blog-post {
+  background-color: white;
+  padding: 1rem 2rem;
+  border-radius: var(--border-radius);
+  margin-bottom: 1rem;
 }
