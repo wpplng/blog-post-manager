@@ -16,6 +16,7 @@ const titleInput = document.querySelector<HTMLInputElement>('#title')!;
 const authorInput = document.querySelector<HTMLInputElement>('#author')!;
 const contentInput = document.querySelector<HTMLInputElement>('#content')!;
 const blogPostsEl = document.querySelector<HTMLFormElement>('.blog-posts')!;
+const sortSelect = document.querySelector<HTMLSelectElement>('#sort')!;
 
 const savePosts = () => {
   localStorage.setItem('posts', JSON.stringify(posts));
@@ -23,7 +24,16 @@ const savePosts = () => {
 
 const renderPosts = () => {
   blogPostsEl.innerHTML = '';
-  posts.forEach((post) => {
+
+  let sortedPosts = [...posts];
+
+  if (sortSelect.value === 'blog-author') {
+    sortedPosts.sort((a, b) => a.author.localeCompare(b.author));
+  } else {
+    sortedPosts.sort((a, b) => b.timestamp - a.timestamp);
+  }
+
+  sortedPosts.forEach((post) => {
     const postEl = document.createElement('article');
     postEl.classList.add('blog-post');
     postEl.innerHTML = `
@@ -61,5 +71,7 @@ formEl.addEventListener('submit', (e) => {
   renderPosts();
   formEl.reset();
 });
+
+sortSelect.addEventListener('change', renderPosts);
 
 renderPosts();
