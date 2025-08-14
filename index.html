@@ -37,10 +37,17 @@
               placeholder="Post Title"
               id="title"
               name="title"
+              required
             />
 
             <label for="author"><b>Author</b></label>
-            <input type="text" placeholder="Author" id="author" name="title" />
+            <input
+              type="text"
+              placeholder="Author"
+              id="author"
+              name="title"
+              required
+            />
 
             <label for="content"><b>Content</b></label>
             <textarea
@@ -48,21 +55,22 @@
               name="content"
               cols="50"
               rows="10"
+              required
             ></textarea>
             <input type="submit" class="btn" />
           </form>
         </section>
 
         <section class="blog-posts-section">
-          <h2>Blog Post</h2>
-          <div>
+          <h2>Blog Posts</h2>
+          <div class="blog-posts"></div>
+          <div class="sort-section">
             <label for="sort"><b>Sort by:</b></label>
             <select id="sort">
               <option value="date">Newest first</option>
               <option value="blog-author">Author</option>
             </select>
           </div>
-          <div class="blog-posts"></div>
         </section>
       </main>
     </div>

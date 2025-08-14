@@ -44,10 +44,10 @@ const renderPosts = () => {
       <p>${post.content}</p>
       <div class="btn-group">
         <button class="btn btn-edit" data-id="${post.id}">
-          <span class="material-symbols-outlined">edit</span>
+          Edit
         </button>
         <button class="btn btn-delete" data-id="${post.id}">
-          <span class="material-symbols-outlined">delete</span>
+          Delete
         </button>
       </div>
     `;
@@ -70,6 +70,29 @@ formEl.addEventListener('submit', (e) => {
   savePosts();
   renderPosts();
   formEl.reset();
+});
+
+blogPostsEl.addEventListener('click', (e) => {
+  const target = e.target as HTMLElement;
+  const postId = target.dataset.id!;
+  if (!postId) return;
+
+  if (target.classList.contains('btn-delete')) {
+    posts = posts.filter((post) => post.id !== postId);
+    savePosts();
+    renderPosts();
+  } else if (target.classList.contains('btn-edit')) {
+    const post = posts.find((p) => p.id === postId);
+    if (post) {
+      titleInput.focus();
+      titleInput.value = post.title;
+      authorInput.value = post.author;
+      contentInput.value = post.content;
+      posts = posts.filter((p) => p.id !== post.id);
+      savePosts();
+      renderPosts();
+    }
+  }
 });
 
 sortSelect.addEventListener('change', renderPosts);
