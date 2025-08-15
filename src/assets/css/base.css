@@ -45,6 +45,7 @@ textarea {
   width: 100%;
   padding: 0.7rem 0.75rem;
   margin-bottom: 1rem;
+  border: none;
 }
 
 .btn {
