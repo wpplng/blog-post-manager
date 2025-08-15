@@ -77,13 +77,3 @@ textarea {
 .main {
   padding: 20px 0;
 }
-
-/* blog image section */
-.blog-image {
-  max-height: 560px;
-  filter: drop-shadow(0px 44px 34px rgba(0, 0, 0, 0.25));
-  overflow: hidden;
-  border-radius: var(--border-radius);
-  width: 100%;
-  height: auto;
-}
