@@ -1,15 +1,8 @@
 import './style.css';
 import { v4 as uuidv4 } from 'uuid';
+import type { IPost } from './types';
 
-interface Post {
-  id: string;
-  title: string;
-  author: string;
-  content: string;
-  timestamp: number;
-}
-
-let posts: Post[] = JSON.parse(localStorage.getItem('posts') || '[]');
+let posts: IPost[] = JSON.parse(localStorage.getItem('posts') || '[]');
 
 const formEl = document.querySelector<HTMLFormElement>('.form')!;
 const titleInput = document.querySelector<HTMLInputElement>('#title')!;
@@ -55,10 +48,32 @@ const renderPosts = () => {
   });
 };
 
+const deletePost = (postId: string) => {
+  posts = posts.filter((post) => post.id !== postId);
+
+  savePosts();
+  renderPosts();
+};
+
+const editPost = (postId: string) => {
+  const post = posts.find((p) => p.id === postId);
+
+  if (post) {
+    titleInput.focus();
+    titleInput.value = post.title;
+    authorInput.value = post.author;
+    contentInput.value = post.content;
+    posts = posts.filter((p) => p.id !== post.id);
+
+    savePosts();
+    renderPosts();
+  }
+};
+
 formEl.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  const newPost: Post = {
+  const newPost: IPost = {
     id: uuidv4(),
     title: titleInput.value,
     author: authorInput.value,
@@ -78,20 +93,9 @@ blogPostsEl.addEventListener('click', (e) => {
   if (!postId) return;
 
   if (target.classList.contains('btn-delete')) {
-    posts = posts.filter((post) => post.id !== postId);
-    savePosts();
-    renderPosts();
+    deletePost(postId);
   } else if (target.classList.contains('btn-edit')) {
-    const post = posts.find((p) => p.id === postId);
-    if (post) {
-      titleInput.focus();
-      titleInput.value = post.title;
-      authorInput.value = post.author;
-      contentInput.value = post.content;
-      posts = posts.filter((p) => p.id !== post.id);
-      savePosts();
-      renderPosts();
-    }
+    editPost(postId);
   }
 });
 
