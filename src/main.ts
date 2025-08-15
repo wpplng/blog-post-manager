@@ -10,23 +10,24 @@ const authorInput = document.querySelector<HTMLInputElement>('#author')!;
 const contentInput = document.querySelector<HTMLInputElement>('#content')!;
 const blogPostsEl = document.querySelector<HTMLFormElement>('.blog-posts')!;
 const sortSelect = document.querySelector<HTMLSelectElement>('#sort')!;
+const filterSelect = document.querySelector<HTMLSelectElement>('#filter')!;
 
 const savePosts = () => {
   localStorage.setItem('posts', JSON.stringify(posts));
 };
 
+/* Render functions */
 const renderPosts = () => {
   blogPostsEl.innerHTML = '';
 
-  let sortedPosts = [...posts];
-
-  if (sortSelect.value === 'blog-author') {
-    sortedPosts.sort((a, b) => a.author.localeCompare(b.author));
-  } else {
-    sortedPosts.sort((a, b) => b.timestamp - a.timestamp);
+  if (posts.length === 0) {
+    blogPostsEl.innerHTML = '<h3>No posts available.</h3>';
+    return;
   }
 
-  sortedPosts.forEach((post) => {
+  const visiblePosts = getSortedAndFilteredPosts();
+
+  visiblePosts.forEach((post) => {
     const postEl = document.createElement('article');
     postEl.classList.add('blog-post');
     postEl.innerHTML = `
@@ -48,10 +49,53 @@ const renderPosts = () => {
   });
 };
 
+const renderFilterOptions = () => {
+  filterSelect.innerHTML = '<option value="">All authors</option>';
+
+  const uniqueAuthors = Array.from(new Set(posts.map((p) => p.author)));
+
+  uniqueAuthors.forEach((author) => {
+    if (
+      [...filterSelect.options].some(
+        (opt) => opt.value.toLowerCase() === author.toLowerCase()
+      )
+    ) {
+      return;
+    }
+
+    const optionEl = document.createElement('option');
+    optionEl.value = author;
+    optionEl.textContent = author;
+    filterSelect.appendChild(optionEl);
+  });
+};
+
+/* Helper functions */
+const getSortedAndFilteredPosts = () => {
+  let sortedPosts = [...posts];
+
+  if (sortSelect.value === 'blog-author') {
+    sortedPosts.sort((a, b) => a.author.localeCompare(b.author));
+  } else {
+    sortedPosts.sort((a, b) => b.timestamp - a.timestamp);
+  }
+
+  if (filterSelect.value) {
+    sortedPosts = sortedPosts.filter(
+      (post) =>
+        post.author.toLocaleLowerCase() ===
+        filterSelect.value.toLocaleLowerCase()
+    );
+  }
+
+  return sortedPosts;
+};
+
 const deletePost = (postId: string) => {
   posts = posts.filter((post) => post.id !== postId);
 
   savePosts();
+  renderFilterOptions();
   renderPosts();
 };
 
@@ -66,10 +110,12 @@ const editPost = (postId: string) => {
     posts = posts.filter((p) => p.id !== post.id);
 
     savePosts();
+    renderFilterOptions();
     renderPosts();
   }
 };
 
+/* Event listeners */
 formEl.addEventListener('submit', (e) => {
   e.preventDefault();
 
@@ -83,6 +129,7 @@ formEl.addEventListener('submit', (e) => {
 
   posts.push(newPost);
   savePosts();
+  renderFilterOptions();
   renderPosts();
   formEl.reset();
 });
@@ -100,5 +147,7 @@ blogPostsEl.addEventListener('click', (e) => {
 });
 
 sortSelect.addEventListener('change', renderPosts);
+filterSelect.addEventListener('change', renderPosts);
 
+renderFilterOptions();
 renderPosts();

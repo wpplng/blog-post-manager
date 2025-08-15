@@ -15,13 +15,25 @@
 }
 
 /* sort */
-.sort-section {
+.sort-filter-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sort-section,
+.filter-section {
   width: 20%;
 }
 
 /* media query */
 @media screen and (max-width: 768px) {
-  .sort-section {
+  .sort-section,
+  .filter-section {
     width: 100%;
+  }
+
+  .sort-filter-section {
+    display: block;
   }
 }

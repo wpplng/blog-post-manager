@@ -54,13 +54,23 @@
 
         <section class="blog-posts-section">
           <h2>Blog Posts</h2>
-          <div class="blog-posts"></div>
-          <div class="sort-section">
-            <label for="sort"><b>Sort by:</b></label>
-            <select id="sort">
-              <option value="date">Newest first</option>
-              <option value="blog-author">Author</option>
-            </select>
+          <div class="blog-posts">
+            <!-- Blog posts will be populated dynamically -->
+          </div>
+          <div class="sort-filter-section">
+            <div class="sort-section">
+              <label for="sort"><b>Sort by:</b></label>
+              <select id="sort">
+                <option value="date">Newest first</option>
+                <option value="blog-author">Author</option>
+              </select>
+            </div>
+            <div class="filter-section">
+              <label for="filter"><b>Filter by Author:</b></label>
+              <select id="filter">
+                <!-- Options will be populated dynamically -->
+              </select>
+            </div>
           </div>
         </section>
       </main>
