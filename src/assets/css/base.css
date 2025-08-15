@@ -87,31 +87,3 @@ textarea {
   width: 100%;
   height: auto;
 }
-
-/* blog posts */
-.blog-posts {
-  margin-top: 2rem;
-}
-
-.blog-post {
-  background-color: white;
-  padding: 1rem 2rem;
-  border-radius: var(--border-radius);
-  margin-bottom: 1rem;
-
-  p {
-    line-height: 1.5;
-  }
-}
-
-/* sort */
-.sort-section {
-  width: 20%;
-}
-
-/* media query */
-@media screen and (max-width: 768px) {
-  .sort-section {
-    width: 100%;
-  }
-}
